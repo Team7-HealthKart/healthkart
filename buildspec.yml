@@ -2,10 +2,7 @@ version: 0.2
 
 env:
   variables:
-    SNYK_TOKEN: "3cc971b0-521d-4175-8a99-469abce1f023" # Replace with your Snyk API token
-    DOCKER_IMAGE_NAME: "healthkart-app" # Replace with your Docker image name
     DOCKER_FILE_PATH: "Dockerfile" # If your Dockerfile is named differently, adjust accordingly
-    S3_BUCKET: "codepipelinestartertempla-codepipelineartifactsbuc-q7vtfaf98gzz" # Replace with your S3 bucket name for reports
 
 phases:
   install:
