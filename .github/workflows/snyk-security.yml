@@ -29,7 +29,7 @@ jobs:
       - name: Snyk Open Source monitor
         run: snyk monitor --all-projects
       - name: Snyk IaC test and report
-        run: snyk iac test --report
+        run: snyk iac test iac/ --report
       - name: Build a Docker image
         run: docker build -t your/image-to-test .
       - name: Snyk Container monitor
