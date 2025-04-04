@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: check out code 
-        uses: action/checkout@v2
+        uses: action/checkout
       - name: Install Node.js 14.x
         uses: actions/setup-node@v2
         with:
