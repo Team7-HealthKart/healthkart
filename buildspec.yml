@@ -46,4 +46,3 @@ cache:
   paths:
     - "/root/.npm/**/*" # Cache npm dependencies to speed up builds (adjust for your stack)
     - "/root/.docker/**/*" # Cache Docker layers to speed up future builds
-
