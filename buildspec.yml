@@ -30,7 +30,7 @@ phases:
     commands:
       - echo Monitoring Docker image with Snyk...
       # - snyk monitor --docker $DOCKER_IMAGE_NAME
-      - aws s3 cp snyk-report.json s3://$S3_BUCKET/snyk-reports/snyk-report-$(date +%Y%m%d%H%M%S).json
+      # - aws s3 cp snyk-report.json s3://$S3_BUCKET/snyk-reports/snyk-report-$(date +%Y%m%d%H%M%S).json
       - docker push 954976319724.dkr.ecr.us-east-1.amazonaws.com/$DOCKER_IMAGE_NAME:latest
 
 artifacts:
