@@ -7,6 +7,9 @@ WORKDIR /usr/src/app
 # Copy the application files to the container
 COPY . .
 
+# Install dependencies
+RUN npm install
+
 # Expose the port the application will run on
 EXPOSE 8080
 
