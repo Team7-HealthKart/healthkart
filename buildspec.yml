@@ -1,0 +1,48 @@
+version: 0.2
+
+env:
+  variables:
+    DOCKER_FILE_PATH: "Dockerfile" # If your Dockerfile is named differently, adjust accordingly
+
+phases:
+  install:
+    runtime-versions:
+      docker: 19 # Ensure Docker is available in the build environment
+    commands:
+      - echo Installing Docker dependencies...
+      - curl -sL https://snyk.io/install | bash # Install Snyk CLI
+      - echo Docker and Snyk CLI installed.
+
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 954976319724.dkr.ecr.us-east-1.amazonaws.com
+      - echo Authenticating with Snyk...
+      - snyk auth $SNYK_TOKEN # Authenticate with Snyk
+      - echo Building Docker image...
+      - docker build -t $DOCKER_IMAGE_NAME -f $DOCKER_FILE_PATH . # Build Docker image using your Dockerfile
+      - snyk test --docker $DOCKER_IMAGE_NAME # Run Snyk security tests on the Docker image to check for vulnerabilities
+
+  build:
+    commands:
+      - echo Running tests inside Docker container...
+      - docker run --rm $DOCKER_IMAGE_NAME npm test # Run tests inside the Docker container
+      - snyk test --docker $DOCKER_IMAGE_NAME # Run Snyk test again after the build to check for vulnerabilities in dependencies
+
+  post_build:
+    commands:
+      - echo Monitoring Docker image with Snyk...
+      - snyk monitor --docker $DOCKER_IMAGE_NAME # Monitor the Docker image on Snyk for vulnerabilities
+      - aws s3 cp snyk-report.json s3://$S3_BUCKET/snyk-reports/snyk-report-$(date +%Y%m%d%H%M%S).json # Upload the Snyk report to S3
+      - echo Snyk report uploaded to S3.
+      - docker tag $ImageName:latest 954976319724.dkr.ecr.us-east-1.amazonaws.com/$ImageName:latest
+      - docker push 954976319724.dkr.ecr.us-east-1.amazonaws.com/$ImageName:latest
+
+artifacts:
+  files:
+    - "**/*" # Adjust the files that should be included as build artifacts (e.g., Dockerfile, config files)
+    - snyk-report.json # Upload the Snyk report as an artifact for tracking
+
+cache:
+  paths:
+    - "/root/.npm/**/*" # Cache npm dependencies to speed up builds (adjust for your stack)
+    - "/root/.docker/**/*" # Cache Docker layers to speed up future builds
