@@ -1,4 +1,4 @@
-name: Hello World
+name: Build
 on: [push]
 jobs:
   Hello-World-Job:
