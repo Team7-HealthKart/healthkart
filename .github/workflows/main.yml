@@ -1,7 +1,7 @@
 name: Build
 on: [push]
 jobs:
-  Hello-World-Job:
+  Build-Job:
     runs-on:
       - codebuild-Team7-HealthKart-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
