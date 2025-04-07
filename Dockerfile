@@ -1,11 +1,14 @@
 # Use an official Node.js image as the base image
-FROM node:16-alpine
+FROM node:23.11.0-alpine
 
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
 # Copy the application files to the container
 COPY . .
+
+# Install dependencies
+RUN npm install
 
 # Expose the port the application will run on
 EXPOSE 8080
