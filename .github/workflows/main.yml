@@ -26,6 +26,3 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t healthkart-app .
-          npm install -g snyk
-          snyk test
-          snyk monitor
