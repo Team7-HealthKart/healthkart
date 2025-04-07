@@ -15,7 +15,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on:
-      - codebuild-Team7-HealthKart-${{ github.run_id }}-${{ github.run_attempt }}
+      - self-hosted
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
