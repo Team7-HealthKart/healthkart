@@ -24,10 +24,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Build Docker Image
-        run: docker build -t healthkart-app .
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          docker build -t healthkart-app .
+          snyk test --all-projects --json-file-output=snyk-report.json || { echo 'Snyk test failed'; exit 1; }
+          snyk monitor --all-projects || { echo 'Snyk monitor failed'; exit 1; }
