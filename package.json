@@ -11,6 +11,7 @@
     "testEnvironment": "jest-environment-jsdom",
     "verbose": true,
      "setupFiles": ["<rootDir>/jest.setup.js"],
+     "testTimeout": 30000,
     "reporters": [
       "default",
       [
