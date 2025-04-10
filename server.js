@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const app = express();
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 3001;
 
 // Serve the health data JSON file
 app.get("/health-insights", (req, res) => {
@@ -24,6 +24,10 @@ app.get("/", (req, res) => {
 
 // Start the server
 if (require.main === module) {
+  app.listen(port, "0.0.0.0", () => {
+    console.log(`Server is running on http://localhost:${port}`);
+  });
+} else {
   app.listen(port, "0.0.0.0", () => {
     console.log(`Server is running on http://localhost:${port}`);
   });

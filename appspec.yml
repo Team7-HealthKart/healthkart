@@ -1,11 +1,20 @@
 version: 0.0
 os: linux
 files:
-  - source: / # Source can be the directory or the file location from CodePipeline artifacts
-    destination: /home/ec2-user/myapp # Destination directory on the EC2 instance
+  - source: /        # Copy everything from the root of your repo
+    destination: /home/ec2-user/app # Directory on the EC2 instance
 
 hooks:
-  AfterInstall:
-    - location: scripts/run_docker.sh # Shell script that will run Docker commands
+  BeforeInstall:
+    - location: scripts/install_dependencies.sh
       timeout: 300
-      runas: ec2-user # User under which to run the script
+      runas: ec2-user
+  AfterInstall:
+    - location: scripts/start_application.sh
+      timeout: 300
+      runas: ec2-user
+  ApplicationStart:
+    - location: scripts/clean_up.sh
+      timeout: 300
+      runas: ec2-user
+

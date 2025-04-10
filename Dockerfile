@@ -1,21 +1,19 @@
-# Use an official Node.js image as the base image
-
+# Use official Node.js image as base
 FROM node:latest
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /usr/src/app
 
-# Copy the application files to the container
-COPY . .
-
-# Install dependencies
+# Copy package.json and install dependencies
+COPY package*.json ./
 RUN npm install
 
-# Expose the port the application will run on
-EXPOSE 8080
+# Copy the rest of the application code
+COPY . .
 
-# Install a simple HTTP server to serve static files
-RUN npm install -g http-server
+# Expose the application port (default Node.js port is 3000)
+EXPOSE 3001
 
-# Command to run the application
-CMD ["http-server", "-p", "8080", "-a", "0.0.0.0"]
+# Run the application
+CMD ["npm", "start"]
+
