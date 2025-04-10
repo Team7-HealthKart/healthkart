@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 
 // Serve the health data JSON file
 app.get("/health-insights", (req, res) => {
@@ -19,12 +19,12 @@ app.use(express.static(path.join(__dirname)));
 
 // Basic route for testing the server
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // Start the server
 if (require.main === module) {
-  app.listen(port, () => {
+  app.listen(port, "0.0.0.0", () => {
     console.log(`Server is running on http://localhost:${port}`);
   });
 }
