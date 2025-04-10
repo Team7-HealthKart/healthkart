@@ -1,15 +1,15 @@
 <html><head><meta charset="utf-8"/><title>Test Report</title><style type="text/css">:root {
   --text-primary: #111;
-  --text-secondary: #4F4F4F;
+  --text-secondary: #4f4f4f;
   --success: #006633;
-  --success-bright: #80FFBF;
-  --danger: #CC071E;
-  --danger-bright: #FBDFE0;
-  --warning: #995C00;
-  --warning-bright: #FFEEA8;
+  --success-bright: #80ffbf;
+  --danger: #cc071e;
+  --danger-bright: #fbdfe0;
+  --warning: #995c00;
+  --warning-bright: #ffeea8;
   --panel: #eee;
   --border: #949494;
-  --disabled: #6B6B6B;
+  --disabled: #6b6b6b;
 }
 
 html,
@@ -43,10 +43,23 @@ header {
   margin-top: 0.5rem;
 }
 
+#metadata-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.additional-information-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
 /** SUMMARY */
 #summary {
   color: var(--text-primary);
-  margin: 2rem 0;
   display: flex;
   font-family: monospace;
   font-size: 1rem;
@@ -261,4 +274,4 @@ header {
   font-size: 1rem;
   padding: 0 0.5rem;
 }
-</style></head><body><main class="jesthtml-content"><header><h1 id="title">Test Report</h1></header><section id="metadata-container"><div id="timestamp">Started: 2025-04-01 18:33:41</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (0)</div><div class="summary-passed  summary-empty">0 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (0)</div><div class="summary-passed  summary-empty">0 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div></div></section></main></body></html>
+</style></head><body><main class="jesthtml-content"><header><h1 id="title">Test Report</h1></header><section id="metadata-container"><div id="timestamp">Started: 2025-04-10 21:50:29</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (2)</div><div class="summary-passed ">2 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (10)</div><div class="summary-passed ">10 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div></div></section><details id="suite-1" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">D:\DevOpsFinalTraining\healthkart\tests\script.test.js</div><div class="suite-time">0.806s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Health Form Submission</div><div class="test-title">calculates and displays correct BMI for valid input</div><div class="test-status">passed</div><div class="test-duration">0.037s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Health Form Submission</div><div class="test-title">hides result section when input is missing</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Health Form Submission</div><div class="test-title">creates Chart with correct configuration</div><div class="test-status">passed</div><div class="test-duration">0.013s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Health Form Submission</div><div class="test-title">displays correct suggestions for underweight BMI</div><div class="test-status">passed</div><div class="test-duration">0.01s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Health Form Submission</div><div class="test-title">displays correct suggestions for overweight BMI</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Health Form Submission</div><div class="test-title">displays correct suggestions for obese BMI</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div></div></details><details id="suite-2" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">D:\DevOpsFinalTraining\healthkart\tests\server.test.js</div><div class="suite-time">1.288s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Express Server Tests</div><div class="test-title">should return health insights data in JSON format</div><div class="test-status">passed</div><div class="test-duration">0.107s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Express Server Tests</div><div class="test-title">should serve the index.html file on the root route</div><div class="test-status">passed</div><div class="test-duration">0.012s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Express Server Tests</div><div class="test-title">should serve static files from the root directory</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Express Server Tests</div><div class="test-title">should respond with a success message when the server starts</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div></div></details></main></body></html>
