@@ -6,23 +6,26 @@ const app = require("../server"); // Assuming the file is called 'server.js'
 describe("Express Server Tests", () => {
 let server;
 
-beforeAll((done) => {
-  // Start the server and wait for it to start
+beforeAll(() => {
+  // Start the server before tests
   server = app.listen(0, () => {
     const port = server.address().port;
     console.log(`Test server running on port ${port}`);
-    done();
   });
 });
 
-afterAll((done) => {
+afterAll(() => {
   // Ensure the server is closed after tests to free up the port
-  server.close(done);
-  console.log("Test server closed.");
+  return new Promise((resolve) => {
+    server.close(() => {
+      console.log('Server closed.');
+      resolve();
+    });
+  });
 });
 
    it("should return health insights data in JSON format", async () => {
-    const res = await request(app).get("/health-insights");
+    const res = await request(app).get("/health-insights").timeout(5000);
     expect(res.status).toBe(200);
     expect(res.type).toBe("application/json");
   });
@@ -48,7 +51,7 @@ afterAll((done) => {
   // Test Case 3: Verify the server starts up correctly
   it("should respond with a success message when the server starts", async () => {
     // We can't directly test console logs, but we can check for the server response
-    const res = await request(app).get("/");
+    const res = await request(app).get("/").timeout(5000);
     expect(res.status).toBe(200);
   });
 });
