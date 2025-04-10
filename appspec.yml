@@ -1,8 +1,8 @@
 version: 0.0
 os: linux
 files:
-  - source: /dist/
-    destination: /var/www/myapp/
+  - source: /
+    destination: /var/www/healthkart/
 hooks:
   BeforeInstall:
     - location: scripts/stop_server.sh
