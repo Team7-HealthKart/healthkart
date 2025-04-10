@@ -18,7 +18,8 @@ docker pull 311141543335.dkr.ecr.eu-north-1.amazonaws.com/simple-docker-service-
 
 # Run the Docker container (if it's not already running)
 echo "Running the Docker container..."
-
+docker stop healthkart-app
+docker rm healthkart-app
 docker run -d -p 3001:3001 --name healthkart-app 311141543335.dkr.ecr.eu-north-1.amazonaws.com/simple-docker-service-0a424f13d5cd:latest
 
 echo "Docker container is running!"
