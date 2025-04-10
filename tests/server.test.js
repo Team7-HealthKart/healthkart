@@ -4,6 +4,18 @@ const path = require("path");
 const app = require("../server"); // Assuming the file is called 'server.js'
 
 describe("Express Server Tests", () => {
+let server;
+
+beforeAll(() => {
+  // Start the server before tests
+  server = app.listen(3001);
+});
+
+afterAll((done) => {
+  // Close the server after tests to prevent open handles
+  server.close(done);
+});
+  
   // Test Case 1: Check if the health-insights route returns JSON data
   it("should return health insights data in JSON format", async () => {
     const res = await request(app).get("/health-insights");
