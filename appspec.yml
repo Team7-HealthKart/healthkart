@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+  - source: /dist/
+    destination: /var/www/myapp/
+hooks:
+  BeforeInstall:
+    - location: scripts/stop_server.sh
+      timeout: 180
+  AfterInstall:
+    - location: scripts/start_server.sh
+      timeout: 180
+  ApplicationStart:
+    - location: scripts/restart_node.sh
+      timeout: 180
