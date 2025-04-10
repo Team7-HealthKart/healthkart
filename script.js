@@ -1,96 +1,101 @@
-// Static health data
-const healthData = [
-  {
-    age: 30,
-    weight: 70,
-    height: 175,
-    bloodPressure: "120/80",
-    heartRate: 75,
-    healthInsights: {
-      bmi: 22.86,
-      hydration: "Ensure to stay hydrated. Aim for 2-3 liters of water daily.",
-      exercise:
-        "Maintain a healthy routine of 30 minutes of moderate exercise most days.",
-      stress:
-        "Keep stress levels low through relaxation techniques like meditation.",
-    },
-  },
-  {
-    age: 45,
-    weight: 85,
-    height: 168,
-    bloodPressure: "130/85",
-    heartRate: 80,
-    healthInsights: {
-      bmi: 30.1,
-      hydration:
-        "Make sure to hydrate well, especially after physical activities.",
-      exercise:
-        "Consider incorporating strength training and cardio for overall fitness.",
-      stress:
-        "Monitor stress levels and engage in stress-relief activities like yoga.",
-    },
-  },
-  {
-    age: 25,
-    weight: 60,
-    height: 180,
-    bloodPressure: "115/75",
-    heartRate: 72,
-    healthInsights: {
-      bmi: 18.5,
-      hydration:
-        "Drink enough water to maintain energy levels throughout the day.",
-      exercise: "Continue staying active with a balanced exercise routine.",
-      stress:
-        "Engage in mindfulness and relaxation exercises to prevent stress buildup.",
-    },
-  },
-];
-
-// Event listener for form submission
 document
   .getElementById("health-form")
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the form from submitting to the server
 
     // Collect the form data
-    const formData = {
-      age: parseInt(document.getElementById("age").value),
-      weight: parseInt(document.getElementById("weight").value),
-      height: parseInt(document.getElementById("height").value),
-      bloodPressure: document.getElementById("bloodPressure").value,
-      heartRate: parseInt(document.getElementById("heartRate").value),
-    };
+    const weight = parseFloat(document.getElementById("weight").value);
+    const height = parseFloat(document.getElementById("height").value);
 
-    // Filter health data based on the form data
-    const filteredData = healthData.filter((user) => {
-      return (
-        (user.age === formData.age || !formData.age) &&
-        (user.weight === formData.weight || !formData.weight) &&
-        (user.height === formData.height || !formData.height) &&
-        (user.bloodPressure === formData.bloodPressure ||
-          !formData.bloodPressure) &&
-        (user.heartRate === formData.heartRate || !formData.heartRate)
-      );
-    });
+    const bmiDiv = document.getElementById("bmi-result");
+    const suggestionDiv = document.getElementById("bmi-suggestions");
+    const resultSection = document.getElementById("result-section");
 
-    // Display filtered health insights
-    const insightsDiv = document.getElementById("health-insights");
-    insightsDiv.innerHTML = ""; // Clear any previous results
+    if (weight && height) {
+      // Calculate BMI (height in meters, weight in kg)
+      const heightInMeters = height / 100; // Convert height from cm to meters
+      const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(2);
 
-    if (filteredData.length > 0) {
-      filteredData.forEach((user) => {
-        insightsDiv.innerHTML += `
-                <h3>Health Insights for Age: ${user.age}</h3>
-                <p><strong>BMI:</strong> ${user.healthInsights.bmi}</p>
-                <p><strong>Hydration Advice:</strong> ${user.healthInsights.hydration}</p>
-                <p><strong>Exercise Advice:</strong> ${user.healthInsights.exercise}</p>
-                <p><strong>Stress Tips:</strong> ${user.healthInsights.stress}</p>
-                <hr>
-            `;
+      // Display BMI value
+      document.getElementById(
+        "bmi-value"
+      ).innerHTML = `<strong>Your BMI:</strong> ${bmi}`;
+
+      // Create BMI chart
+      const ctx = document.getElementById("bmi-chart").getContext("2d");
+      new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: ["BMI", "Remaining"],
+          datasets: [
+            {
+              data: [bmi, 40], // Ensure chart proportions work well
+              backgroundColor: ["#28a745", "#ddd"],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          cutoutPercentage: 60,
+          legend: { display: false },
+          maintainAspectRatio: false,
+        },
       });
+
+      // Display suggestions based on BMI
+      let suggestions = "";
+      if (bmi < 18.5) {
+        suggestions = `
+        <p><strong>Suggestion:</strong> You are underweight. Here's what you can do:</p>
+        <ul>
+          <li><strong>Diet:</strong> Focus on nutrient-dense, calorie-rich foods like lean proteins, whole grains, and healthy fats.</li>
+          <li><strong>Exercise:</strong> Engage in strength training exercises like weight lifting to build muscle mass.</li>
+          <li><strong>Health Tip:</strong> Being underweight can affect immune function and energy levels. Regular check-ups are recommended.</li>
+        </ul>
+      `;
+      } else if (bmi >= 18.5 && bmi < 24.9) {
+        suggestions = `
+        <p><strong>Suggestion:</strong> You are at a healthy weight. Keep up the good work:</p>
+        <ul>
+          <li><strong>Diet:</strong> Maintain a balanced diet with a focus on fruits, vegetables, and lean proteins.</li>
+          <li><strong>Exercise:</strong> Engage in at least 150 minutes of moderate-intensity exercise per week.</li>
+          <li><strong>Health Tip:</strong> Ensure you are sleeping well and managing stress to maintain overall well-being.</li>
+        </ul>
+      `;
+      } else if (bmi >= 25 && bmi < 29.9) {
+        suggestions = `
+        <p><strong>Suggestion:</strong> You are overweight. Consider taking the following steps:</p>
+        <ul>
+          <li><strong>Diet:</strong> Focus on reducing processed foods and increasing fiber intake through fruits, vegetables, and whole grains.</li>
+          <li><strong>Exercise:</strong> Aim for at least 150 minutes of cardio exercise each week.</li>
+          <li><strong>Health Tip:</strong> Gradual weight loss of 0.5–1 kg per week is considered healthy. Monitor your progress regularly.</li>
+        </ul>
+      `;
+      } else {
+        suggestions = `
+        <p><strong>Suggestion:</strong> You are in the obese range. Consider taking the following steps:</p>
+        <ul>
+          <li><strong>Diet:</strong> Work with a healthcare provider to create a personalized eating plan, focusing on nutrient-dense foods.</li>
+          <li><strong>Exercise:</strong> Start with low-impact activities like walking or swimming.</li>
+          <li><strong>Health Tip:</strong> Obesity increases the risk of several health conditions. Regular check-ups are essential.</li>
+        </ul>
+      `;
+      }
+
+      suggestionDiv.innerHTML = suggestions;
+
+      // Show the result section and the chart
+      resultSection.style.display = "block"; // Show result section
+      bmiDiv.style.display = "block"; // Make sure BMI chart is visible
+      suggestionDiv.style.display = "block"; // Make suggestions visible
+
+      // Fade-in effect for suggestions
+      setTimeout(() => {
+        suggestionDiv.style.opacity = 1; // Fade-in effect
+      }, 100); // Delay for smooth transition
     } else {
-      insightsDiv.innerHTML = `<p>No matching data found. Please check your inputs.</p>`;
+      // Hide the result section if weight or height is not entered
+      resultSection.style.display = "none";
     }
   });
