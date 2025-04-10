@@ -1,15 +1,15 @@
 version: 0.0
 os: linux
 files:
-  - source: /
-    destination: /var/www/healthkart/
+  - source: / # Source can be the directory or the file location from CodePipeline artifacts
+    destination: /home/ec2-user/myapp # Destination directory on the EC2 instance
+
 hooks:
-  BeforeInstall:
-    - location: scripts/stop_server.sh
-      timeout: 180
   AfterInstall:
-    - location: scripts/start_server.sh
-      timeout: 180
+    - location: scripts/run_docker.sh # Shell script that will run Docker commands
+      timeout: 300
+      runas: ec2-user # User under which to run the script
   ApplicationStart:
-    - location: scripts/restart_node.sh
-      timeout: 180
+    - location: scripts/start_server.sh # Optionally, start the server
+      timeout: 300
+      runas: ec2-user
