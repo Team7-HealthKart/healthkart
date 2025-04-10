@@ -9,7 +9,3 @@ hooks:
     - location: scripts/run_docker.sh # Shell script that will run Docker commands
       timeout: 300
       runas: ec2-user # User under which to run the script
-  ApplicationStart:
-    - location: scripts/start_server.sh # Optionally, start the server
-      timeout: 300
-      runas: ec2-user
