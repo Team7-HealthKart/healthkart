@@ -8,13 +8,23 @@ let server;
 
 beforeAll(() => {
   // Start the server before tests
-  server = app.listen(3001);
+  server = app.listen(0, () => {
+    const port = server.address().port;
+    console.log(`Test server running on port ${port}`);
+    done();
+  });
 });
 
 afterAll((done) => {
   // Close the server after tests to prevent open handles
   server.close(done);
 });
+
+   it("should return health insights data in JSON format", async () => {
+    const res = await request(app).get("/health-insights");
+    expect(res.status).toBe(200);
+    expect(res.type).toBe("application/json");
+  });
   // Test Case 1: Check if the root route serves the index.html file correctly
   it("should serve the index.html file on the root route", async () => {
     const res = await request(app).get("/");
