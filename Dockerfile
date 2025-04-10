@@ -18,4 +18,4 @@ EXPOSE 8080
 RUN npm install -g http-server
 
 # Command to run the application
-CMD ["http-server", "-p", "8080"]
+CMD ["http-server", "-p", "8080", "-a", "0.0.0.0"]
