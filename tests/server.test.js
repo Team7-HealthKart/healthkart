@@ -6,18 +6,17 @@ const app = require("../server"); // Assuming the file is called 'server.js'
 describe("Express Server Tests", () => {
 let server;
 
-beforeAll(() => {
-  // Start the server before tests
+beforeAll(async () => {
+  // Start the server and wait for it to start
   server = app.listen(0, () => {
     const port = server.address().port;
     console.log(`Test server running on port ${port}`);
-    done();
   });
 });
 
-afterAll((done) => {
-  // Close the server after tests to prevent open handles
-  server.close(done);
+afterAll(async () => {
+  // Ensure the server is closed after tests to free up the port
+  server.close();
 });
 
    it("should return health insights data in JSON format", async () => {
