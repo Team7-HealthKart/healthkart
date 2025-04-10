@@ -27,10 +27,6 @@ if (require.main === module) {
   app.listen(port, "0.0.0.0", () => {
     console.log(`Server is running on http://localhost:${port}`);
   });
-} else {
-  app.listen(port, "0.0.0.0", () => {
-    console.log(`Server is running on http://localhost:${port}`);
-  });
 }
 
 module.exports = app;
