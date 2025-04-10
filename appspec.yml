@@ -3,17 +3,10 @@ os: linux
 files:
   - source: /        # Copy everything from the root of your repo
     destination: /home/ec2-user/app # Directory on the EC2 instance
+
 hooks:
   BeforeInstall:
-    - location: scripts/install_dependencies.sh
-      timeout: 300
-      runas: ec2-user
-  AfterInstall:
-    - location: scripts/start_application.sh
-      timeout: 300
-      runas: ec2-user
-  ApplicationStart:
-    - location: scripts/clean_up.sh
+    - location: scripts/run_docker.sh
       timeout: 300
       runas: ec2-user
 
