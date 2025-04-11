@@ -1,25 +1,27 @@
 version: 0.2
- 
- phases:
-   install:
-     commands:
-       - echo Using Docker preinstalled in CodeBuild image
-       - echo Installing Docker...
-       - yum install -y docker
-       - service docker start
-       - echo Docker is pre-installed in this CodeBuild image
- 
-   build:
-     commands:
-       - echo Running ZAP scan in Docker...
-       - docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t http://16.170.246.106:3001 -r zap_report.html
- 
-   post_build:
-     commands:
-       - echo ZAP scan completed
-       - echo Uploading ZAP report to S3...
-       - aws s3 cp zap_report.html s3://codepipelinestartertempla-codepipelineartifactsbuc-v8bguamqaest/DAST_logs/zap_report.html
- 
- artifacts:
-   files:
-     - zap_report.html
+
+phases:
+  install:
+    commands:
+      - echo Using Docker preinstalled in CodeBuild image
+
+  build:
+    commands:
+      - echo Running ZAP scan in Docker...
+      - docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t http://16.170.246.106:3001 -r zap_report.html
+
+  post_build:
+    commands:
+      - echo ZAP scan completed
+      - echo Uploading ZAP report to S3...
+      - aws s3 cp zap_report.html s3://codepipelinestartertempla-codepipelineartifactsbuc-v8bguamqaest/DAST_logs/zap_report.html
+
+artifacts:
+  files:
+    - zap_report.html
+version: 0.2
+
+phases:
+  build:
+    commands:
+      # - echo "Hello World"
