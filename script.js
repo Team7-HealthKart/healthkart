@@ -41,15 +41,43 @@ function setupForm() {
         });
 
         let suggestions = "";
-        if (bmi < 18.5) {
-          suggestions = `<p><strong>Suggestion:</strong> You are underweight...`;
-        } else if (bmi >= 18.5 && bmi < 24.9) {
-          suggestions = `<p><strong>Suggestion:</strong> You are at a healthy weight...`;
-        } else if (bmi >= 25 && bmi < 29.9) {
-          suggestions = `<p><strong>Suggestion:</strong> You are overweight...`;
-        } else {
-          suggestions = `<p><strong>Suggestion:</strong> You are in the obese range...`;
-        }
+       if (bmi < 18.5) {
+        suggestions = `
+        <p><strong>Suggestion:</strong> You are underweight. Here's what you can do:</p>
+        <ul>
+          <li><strong>Diet:</strong> Focus on nutrient-dense, calorie-rich foods like lean proteins, whole grains, and healthy fats.</li>
+          <li><strong>Exercise:</strong> Engage in strength training exercises like weight lifting to build muscle mass.</li>
+          <li><strong>Health Tip:</strong> Being underweight can affect immune function and energy levels. Regular check-ups are recommended.</li>
+        </ul>
+      `;
+      } else if (bmi >= 18.5 && bmi < 24.9) {
+        suggestions = `
+        <p><strong>Suggestion:</strong> You are at a healthy weight. Keep up the good work:</p>
+        <ul>
+          <li><strong>Diet:</strong> Maintain a balanced diet with a focus on fruits, vegetables, and lean proteins.</li>
+          <li><strong>Exercise:</strong> Engage in at least 150 minutes of moderate-intensity exercise per week.</li>
+          <li><strong>Health Tip:</strong> Ensure you are sleeping well and managing stress to maintain overall well-being.</li>
+        </ul>
+      `;
+      } else if (bmi >= 25 && bmi < 29.9) {
+        suggestions = `
+        <p><strong>Suggestion:</strong> You are overweight. Consider taking the following steps:</p>
+        <ul>
+          <li><strong>Diet:</strong> Focus on reducing processed foods and increasing fiber intake through fruits, vegetables, and whole grains.</li>
+          <li><strong>Exercise:</strong> Aim for at least 150 minutes of cardio exercise each week.</li>
+          <li><strong>Health Tip:</strong> Gradual weight loss of 0.5–1 kg per week is considered healthy. Monitor your progress regularly.</li>
+        </ul>
+      `;
+      } else {
+        suggestions = `
+        <p><strong>Suggestion:</strong> You are in the obese range. Consider taking the following steps:</p>
+        <ul>
+          <li><strong>Diet:</strong> Work with a healthcare provider to create a personalized eating plan, focusing on nutrient-dense foods.</li>
+          <li><strong>Exercise:</strong> Start with low-impact activities like walking or swimming.</li>
+          <li><strong>Health Tip:</strong> Obesity increases the risk of several health conditions. Regular check-ups are essential.</li>
+        </ul>
+      `;
+      }
 
         suggestionDiv.innerHTML = suggestions;
 
