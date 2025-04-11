@@ -8,13 +8,13 @@ phases:
   build:
     commands:
       - echo Running ZAP scan in Docker...
-      - docker run --rm -v $(pwd):/zap/wrk/:rw zaproxy/zap-stable zap.sh -cmd -quickurl http://16.170.246.106:3001 -quickout /zap/wrk/zap_report.html -quickprogress
+      - docker run --rm -v $(pwd):/zap/wrk/:rw zaproxy/zap-stable zap.sh -cmd -quickurl http://16.170.246.106:3001 -quickout /zap/wrk//zap/wrk/reports/zap/zap_report.html -quickprogress
 
   post_build:
     commands:
       - echo ZAP scan completed
       - echo Uploading ZAP report to S3...
-      - aws s3 cp zap_report.html s3://codepipelinestartertempla-codepipelineartifactsbuc-v8bguamqaest/DAST_logs/zap_report.html
+      - aws s3 cp reports/zap/zap_report.html s3://codepipelinestartertempla-codepipelineartifactsbuc-v8bguamqaest/DAST_logs/zap_report.html
 
 artifacts:
   files:
