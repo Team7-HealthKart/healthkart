@@ -8,7 +8,7 @@ phases:
   build:
     commands:
       - echo Running ZAP scan in Docker...
-      - docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t http://16.170.246.106:3001 -r zap_report.html
+      - docker run --rm -v $(pwd):/zap/wrk/:rw zaproxy/zap-stable zap.sh -cmd -quickurl http://16.170.246.106:3001 -quickout /zap/wrk/zap_report.html -quickprogress
 
   post_build:
     commands:
