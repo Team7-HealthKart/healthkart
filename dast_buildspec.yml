@@ -8,15 +8,28 @@ phases:
   build:
     commands:
       - echo Running ZAP scan in Docker...
-      - docker run --rm -v $(pwd):/zap/wrk/:rw zaproxy/zap-stable zap.sh -cmd -quickurl http://16.170.246.106:3001 -quickout /zap/wrk//zap/wrk/reports/zap/zap_report.html -quickprogress
+      - docker run --rm -v $(pwd):/zap/wrk/:rw ghcr.io/zaproxy/zaproxy:stable \
+          zap.sh -cmd -quickurl http://16.170.246.106:3001 \
+          -quickout /zap/wrk/zap_report.html -quickprogress
+      - echo ZAP scan completed
 
   post_build:
     commands:
-      - echo ZAP scan completed
+      - echo Checking generated files...
+      - ls -la
+      - echo Organizing report directory...
+      - mkdir -p reports/zap
+      - |
+        if [ -f zap_report.html ]; then
+          echo "Moving report to reports/zap/"
+          mv zap_report.html reports/zap/zap_report.html
+        else
+          echo "❌ zap_report.html not found. Skipping upload."
+          exit 1
+        fi
       - echo Uploading ZAP report to S3...
       - aws s3 cp reports/zap/zap_report.html s3://codepipelinestartertempla-codepipelineartifactsbuc-v8bguamqaest/DAST_logs/zap_report.html
 
 artifacts:
   files:
-    - zap_report.html
-
+    - reports/zap/zap_report.html
