@@ -4,7 +4,7 @@ phases:
   install:
     commands:
       - echo Using Docker preinstalled in CodeBuild image
-	- echo Installing Docker...
+      - echo Installing Docker...
       - yum install -y docker
       - service docker start
 
